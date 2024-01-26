@@ -1,55 +1,89 @@
-const formData = [
-  {
-    name: "name",
-    label: "Nome",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "cpf",
-    label: "CPF",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "birthday",
-    label: "Aniversário",
-    type: "date",
-    required: true,
-  },
-];
+"use client";
+
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { validateCpf } from "@/utils/validateCpf";
+
+const registerUserFormSchema = z.object({
+  name: z.string().min(3, "O nome precisa ter pelo menos 3 caracteres").max(50),
+  cpf: z.string().refine((cpf) => validateCpf(cpf), "CPF inválido"),
+  birthday: z.date(),
+});
 
 const RegisterUser = () => {
-  return (
-    <form className="mx-auto grid gap-6 text-center lg:max-w-5xl lg:w-full lg:grid-cols-2">
-      <div className="flex flex-col items-center justify-center bg-white dark:bg-zinc-900/40 p-8 rounded-lg shadow-md">
-        {formData.map((data) => (
-          <div
-            key={data.name}
-            className="flex flex-col items-center justify-center bg-white dark:bg-zinc-900/40 p-8 rounded-lg shadow-md"
-          >
-            <label
-              htmlFor={data.name}
-              className="mb-2 text-lg font-semibold text-gray-800 dark:text-white"
-            >
-              {data.label}
-            </label>
-            <input
-              type={data.type}
-              name={data.name}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-zinc-800/50"
-            />
-          </div>
-        ))}
-      </div>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(registerUserFormSchema),
+  });
 
-      <button
-        type="submit"
-        className="col-span-2 bg-primary text-white p-3 rounded-md hover:bg-primary/80 focus:outline-none focus:ring focus:border-primary dark:bg-neutral-700 dark:hover:bg-neutral-800/30"
+  function registerUser(data: any) {
+    console.log(data);
+  }
+
+  return (
+    <div className="h-screen pt-32">
+      <form
+        onSubmit={handleSubmit(registerUser)}
+        className="mx-auto grid gap-6 text-center max-w-md p-8 rounded-lg shadow-md"
       >
-        Enviar
-      </button>
-    </form>
+        <label className="block text-white text-sm font-bold mb-2">
+          Nome
+          <input
+            type="text"
+            placeholder="Digite seu nome"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            {...register("name")}
+          />
+          {errors.name && (
+            <span className="text-red-500 text-sm">
+              {errors.name.message as string}
+            </span>
+          )}
+        </label>
+
+        <label className="block text-white text-sm font-bold mb-2">
+          CPF
+          <input
+            type="text"
+            placeholder="Digite seu CPF"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            {...register("cpf")}
+          />
+          {errors.cpf && (
+            <span className="text-red-500 text-sm">
+              {errors.cpf.message as string}
+            </span>
+          )}
+        </label>
+
+        <label className="block text-white text-sm font-bold mb-2">
+          Data de Aniversário
+          <input
+            type="date"
+            placeholder="Selecione a data"
+            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            {...register("birthday")}
+          />
+          {errors.birthday && (
+            <span className="text-red-500 text-sm">
+              {errors.birthday.message as string}
+            </span>
+          )}
+        </label>
+
+        <button
+          type="submit"
+          className="w-full p-3 bg-primary text-white rounded-md hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
+        >
+          Cadastrar
+        </button>
+      </form>
+    </div>
   );
 };
 
