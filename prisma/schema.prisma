@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Client {
-  id       String @id @map("_id")
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   cpf      String @unique
   birthday String

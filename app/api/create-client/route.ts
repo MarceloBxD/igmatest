@@ -32,7 +32,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (validateCpf(cpf)) {
       const newClient = await prisma?.client.create({
         data: {
-          id: String((await prisma?.client.count()) + 1),
           name,
           cpf,
           birthday,
