@@ -1,5 +1,7 @@
 import { validateCpf } from "@/utils/validateCpf";
 import { NextRequest, NextResponse } from "next/server";
+import { cpfWithMask } from "@/utils/cpfWithMask";
+// formating cpf to send to the database with mask always
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const newClient = await prisma?.client.create({
         data: {
           name,
-          cpf,
+          cpf: cpfWithMask(cpf),
           birthday,
         },
       });
