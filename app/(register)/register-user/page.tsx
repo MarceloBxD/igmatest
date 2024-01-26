@@ -1,19 +1,13 @@
 "use client";
 
-import * as z from "zod";
 import axios, { AxiosError } from "axios";
 import { useSpring, animated } from "react-spring";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cleave from "cleave.js/react";
 
-import { validateCpf } from "@/utils/validateCpf";
 import { notify } from "@/components/notify";
-
-const registerUserFormSchema = z.object({
-  name: z.string().min(3, "O nome precisa ter pelo menos 3 caracteres").max(50),
-  cpf: z.string().refine((cpf) => validateCpf(cpf), "CPF inválido"),
-  birthday: z.string(),
-});
+import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
 
 axios.defaults.baseURL = "http://localhost:3000/api";
 
@@ -40,6 +34,7 @@ const RegisterUser = () => {
 
   async function registerClient(data: any) {
     try {
+      console.log(data);
       const response = await axios.post("/create-client", data);
 
       if (response.status === 201) {
@@ -85,7 +80,7 @@ const RegisterUser = () => {
           CPF
           <input
             type="text"
-            placeholder="000.000.000-00 | 00000000000"
+            placeholder="000.000.000-00"
             className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
             {...register("cpf")}
           />
@@ -101,10 +96,11 @@ const RegisterUser = () => {
 
         <animated.label className="block text-white text-sm font-bold mb-2">
           Aniversário
-          <input
+          <Cleave
+            placeholder="Data de nascimento"
             type="text"
-            placeholder="Aniversário"
             className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            options={{ date: true, datePattern: ["d", "m", "Y"] }}
             {...register("birthday")}
           />
           {errors.birthday && (
@@ -119,6 +115,7 @@ const RegisterUser = () => {
 
         <animated.button
           style={buttonAnimation}
+          disabled={Object.keys(errors).length > 0}
           type="submit"
           className="w-full p-3 bg-primary text-black rounded-md hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
         >

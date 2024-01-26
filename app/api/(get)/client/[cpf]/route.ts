@@ -1,4 +1,4 @@
-import { cpfWithMask } from "./../../../../utils/cpfWithMask";
+import { cpfWithMask } from "../../../../../utils/cpfWithMask";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prisma";
 

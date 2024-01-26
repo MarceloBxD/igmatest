@@ -1,10 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/libs/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+import prisma from "@/libs/prisma";
+
+export async function GET(req: NextApiRequest, { params }: { params: any }) {
+  // getting page from query params
+  const page = Number(req.url?.split("?")[1]?.split("=")[1]);
+
   try {
-    const clients = await prisma.client.findMany();
+    let take = 3;
+    let skip = 0;
+
+    if (page) {
+      skip = (page - 1) * take;
+    }
+
+    const clients = await prisma.client.findMany({
+      skip,
+      take,
+      orderBy: {
+        name: "asc",
+      },
+    });
 
     if (clients.length === 0) {
       return NextResponse.json(

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const clientAlreadyExists = await prisma?.client.findFirst({
       where: {
-        cpf,
+        cpf: cpfWithMask(cpf),
       },
     });
 
