@@ -56,14 +56,14 @@ const RegisterUser = () => {
     <animated.div className="h-screen bg-[url('/bg-igma.jpg')] bg-cover bg-center flex items-center justify-center ">
       <form
         onSubmit={handleSubmit(registerClient)}
-        className="mx-auto grid gap-6 text-center max-w-md p-8 rounded-lg bg-neutral-800 bg-opacity-90"
+        className="mx-auto grid gap-6 text-center max-w-md p-8 rounded-lg bg-black bg-opacity-90"
       >
-        <animated.label className="block text-white text-sm font-bold mb-2">
+        <animated.label className="block text-left text-white text-sm font-bold mb-2">
           Nome
           <input
             type="text"
             placeholder="Digite seu nome"
-            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
             {...register("name")}
           />
           {errors.name && (
@@ -76,7 +76,7 @@ const RegisterUser = () => {
           )}
         </animated.label>
 
-        <animated.label className="block text-white text-sm font-bold mb-2">
+        <animated.label className="block text-left text-white text-sm font-bold mb-2">
           CPF
           <input
             type="text"
@@ -94,7 +94,7 @@ const RegisterUser = () => {
           )}
         </animated.label>
 
-        <animated.label className="block text-white text-sm font-bold mb-2">
+        <animated.label className="block text-left text-white text-sm font-bold mb-2">
           Aniversário
           <Cleave
             placeholder="Data de nascimento"
