@@ -23,7 +23,6 @@ function calculateSecondDigit(cpfComPrimeiroDigito: number[]): number {
 export function validateCpf(cpf: string): boolean {
   const cpfNumbers = cpf.replace(/\D/g, "").split("").map(Number);
 
-  // CPF inválido caso não tenha exatamente 11 dígitos numéricos
   if (cpfNumbers.length !== 11) {
     return false;
   }

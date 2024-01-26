@@ -1,7 +1,7 @@
 import { validateCpf } from "@/utils/validateCpf";
 import { NextRequest, NextResponse } from "next/server";
 import { cpfWithMask } from "@/utils/cpfWithMask";
-// formating cpf to send to the database with mask always
+import prisma from "@/libs/prisma";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {

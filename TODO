@@ -1,0 +1,5 @@
+- Validar CPF antes de cadastrar o usuário no Banco de dados (✅)
+- Endpoint para criar clientes (esse endpoint deve retornar um 422 caso o cpf seja inválido) (✅)
+- Endpoint para buscar cliente por CPF (✅)
+- Endpoint para listar todos os clientes (usando paginação) - FALTA PAGINAÇÃO
+- Regras para validação de CPF (✅)

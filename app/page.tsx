@@ -34,7 +34,7 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Cadaster users by name, cpf and birth ( cpf valdation )
+            Cadaster users by name, cpf and birth w/ cpf validation
           </p>
         </a>
       </div>

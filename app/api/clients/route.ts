@@ -19,7 +19,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     return NextResponse.json(clients);
   } catch (error) {
-    console.error(error); // Adicionando um console.error para registrar detalhes do erro no console
+    console.error(error);
 
     return NextResponse.json(
       { message: "Internal Server Error" },
