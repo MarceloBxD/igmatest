@@ -11,7 +11,7 @@ Para instalar e executar o projeto, siga os passos abaixo:
 1. **Clone o repositório**
 
    ```bash
-   git clone <URL do Repositório>
+   git clone igmatest
 
    cd igma-challenge
 

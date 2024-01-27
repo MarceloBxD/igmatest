@@ -3,21 +3,23 @@ import { NextResponse } from "next/server";
 
 import prisma from "@/libs/prisma";
 
+// Per page clients
+const PER_PAGE_CLIENTS = 4;
+
 export async function GET(req: NextApiRequest, { params }: { params: any }) {
   // getting page from query params
   const page = Number(req.url?.split("?")[1]?.split("=")[1]);
 
   try {
-    let take = 3;
     let skip = 0;
 
     if (page) {
-      skip = (page - 1) * take;
+      skip = (page - 1) * PER_PAGE_CLIENTS;
     }
 
     const clients = await prisma.client.findMany({
       skip,
-      take,
+      take: PER_PAGE_CLIENTS,
       orderBy: {
         name: "asc",
       },

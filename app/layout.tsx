@@ -6,9 +6,19 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const PAGE_TITLE = "IGMA CHALLENGE | API";
+const PAGE_DESCRIPTION = "REGISTER CLIENT";
+const PAGE_LANG = "pt-br";
+
+const TOAST_AUTO_CLOSE = 5000;
+const TOAST_POSITION = "bottom-left";
+const TOAST_THEME = "light";
+
+const FONT_CLASSNAME = inter.className;
+
 export const metadata: Metadata = {
-  title: "IGMA CHALLENGE | API",
-  description: "REGISTER CLIENT",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 };
 
 export default function RootLayout({
@@ -17,14 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <body className={inter.className}>
+    <html lang={PAGE_LANG}>
+      <body className={FONT_CLASSNAME}>
         {children}
         <ToastContainer
-          position="bottom-left"
-          autoClose={5000}
+          position={TOAST_POSITION}
+          autoClose={TOAST_AUTO_CLOSE}
           closeOnClick
-          theme="light"
+          theme={TOAST_THEME}
           transition={Slide}
         />
       </body>
