@@ -4,21 +4,13 @@ export const notify = (
   message: string,
   type: "success" | "warning" | "error" | "info"
 ) => {
-  switch (type) {
-    case "success":
-      toast.success(message);
-      break;
-    case "error":
-      toast.error(message);
-      break;
-    case "warning":
-      toast.warning(message);
-      break;
-    case "info":
-      toast.info(message);
-      break;
-    default:
-      toast(message);
-      break;
-  }
+  const toastFunction =
+    {
+      success: toast.success,
+      error: toast.error,
+      warning: toast.warning,
+      info: toast.info,
+    }[type] || toast;
+
+  toastFunction(message);
 };

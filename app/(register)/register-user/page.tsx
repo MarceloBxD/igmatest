@@ -4,8 +4,6 @@ import axios, { AxiosError } from "axios";
 import { useSpring, animated } from "react-spring";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Cleave from "cleave.js/react";
-
 import { notify } from "@/components/notify";
 import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
 
@@ -45,12 +43,29 @@ const RegisterUser = () => {
         err instanceof AxiosError &&
         err?.response?.data.message === "Client already exists"
       ) {
-        return notify("CPF já cadastrado no sistema", "error");
+        return notify("Cliente já cadastrado no sistema", "warning");
       }
 
-      notify("Erro ao cadastrar cliente", "warning");
+      notify("Erro ao cadastrar cliente", "error");
     }
   }
+
+  const renderInput = (label: string, name: string, placeholder: string) => (
+    <animated.label className="block text-left text-white text-sm font-bold mb-2">
+      {label}
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+        {...register(name)}
+      />
+      {errors[name] && (
+        <animated.span style={errorAnimation} className="text-red-500 text-sm">
+          {errors[name]?.message as string}
+        </animated.span>
+      )}
+    </animated.label>
+  );
 
   return (
     <animated.div className="h-screen bg-[url('/bg-igma.jpg')] bg-cover bg-center flex items-center justify-center ">
@@ -58,61 +73,9 @@ const RegisterUser = () => {
         onSubmit={handleSubmit(registerClient)}
         className="mx-auto grid gap-6 text-center max-w-md p-8 rounded-lg bg-black bg-opacity-90"
       >
-        <animated.label className="block text-left text-white text-sm font-bold mb-2">
-          Nome
-          <input
-            type="text"
-            placeholder="Digite seu nome"
-            className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-            {...register("name")}
-          />
-          {errors.name && (
-            <animated.span
-              style={errorAnimation}
-              className="text-red-500 text-sm"
-            >
-              {errors.name.message as string}
-            </animated.span>
-          )}
-        </animated.label>
-
-        <animated.label className="block text-left text-white text-sm font-bold mb-2">
-          CPF
-          <input
-            type="text"
-            placeholder="000.000.000-00"
-            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-            {...register("cpf")}
-          />
-          {errors.cpf && (
-            <animated.span
-              style={errorAnimation}
-              className="text-red-500 text-sm"
-            >
-              {errors.cpf.message as string}
-            </animated.span>
-          )}
-        </animated.label>
-
-        <animated.label className="block text-left text-white text-sm font-bold mb-2">
-          Aniversário
-          <Cleave
-            placeholder="Data de nascimento"
-            type="text"
-            className="w-full p-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-            options={{ date: true, datePattern: ["d", "m", "Y"] }}
-            {...register("birthday")}
-          />
-          {errors.birthday && (
-            <animated.span
-              style={errorAnimation}
-              className="text-red-500 text-sm"
-            >
-              {errors.birthday.message as string}
-            </animated.span>
-          )}
-        </animated.label>
-
+        {renderInput("Nome", "name", "Digite seu nome")}
+        {renderInput("CPF", "cpf", "000.000.000-00")}
+        {renderInput("Data de Aniversário", "birthday", "Data de nascimento")}
         <animated.button
           style={buttonAnimation}
           disabled={Object.keys(errors).length > 0}
