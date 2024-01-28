@@ -11,10 +11,12 @@ datasource db {
 }
 
 model Client {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  cpf      String @unique
-  birthday String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  cpf       String   @unique
+  birthday  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("clients")
 }

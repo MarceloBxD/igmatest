@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const AUTHOR_NAME = "Marcelo Bracet";
-const AUTHOR_URL = "linkedin.com/in/marcelobracet";
+const AUTHOR_URL = "www.linkedin.com/in/marcelo-bracet/";
 
 const MAIN_IMAGE = {
   src: "/igma.jpg",

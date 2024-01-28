@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { ToastContainer, Slide } from "react-toastify";
 import { Inter } from "next/font/google";
+import { AppProvider } from "@/contexts/AppContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,17 +28,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={PAGE_LANG}>
-      <body className={FONT_CLASSNAME}>
-        {children}
-        <ToastContainer
-          position={TOAST_POSITION}
-          autoClose={TOAST_AUTO_CLOSE}
-          closeOnClick
-          theme={TOAST_THEME}
-          transition={Slide}
-        />
-      </body>
-    </html>
+    <AppProvider>
+      <html lang={PAGE_LANG}>
+        <body className={FONT_CLASSNAME}>
+          {children}
+          <ToastContainer
+            position={TOAST_POSITION}
+            autoClose={TOAST_AUTO_CLOSE}
+            closeOnClick
+            theme={TOAST_THEME}
+            transition={Slide}
+          />
+        </body>
+      </html>
+    </AppProvider>
   );
 }

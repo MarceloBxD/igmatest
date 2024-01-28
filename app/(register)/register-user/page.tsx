@@ -3,11 +3,13 @@
 import { animated } from "react-spring";
 import { Form } from "@/components/Form";
 
-
 const RegisterUser = () => {
   return (
-    <animated.div className="h-screen bg-[url('/bg-igma.jpg')] bg-cover bg-center flex items-center justify-center ">
-      <Form />
+    <animated.div className="h-screen w-screen flex">
+      <div className="flex-1 flex flex-col justify-center bg-slate-200">
+        <Form />
+      </div>
+      <div className="bg-[url('/bg-igma.jpg')] grayscale flex-1 bg-no-repeat bg-cover bg-center"></div>
     </animated.div>
   );
 };
