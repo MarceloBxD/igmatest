@@ -3,7 +3,7 @@ import { animated } from "@react-spring/web";
 import InputMask from "react-input-mask";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   masked?: boolean;
@@ -11,15 +11,16 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errors?: any;
 }
 
-const Input: React.FC<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
   errors,
   label,
   name,
   masked,
   register,
+  ...props
 }) => {
   return (
-    <animated.div>
+    <animated.div data-testid='input-testid'>
       <div className="mb-4">
         <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
           {label}
@@ -28,19 +29,22 @@ const Input: React.FC<InputProps> = ({
         {masked ? (
           <InputMask
             mask="99/99/9999"
+            data-testid="input-mask-testid"
             maskChar={null}
             className="w-full p-3 mt-1 border text-left text-gray-900  border-gray-300 rounded-md focus:outline-none focus:border-primary "
             {...register(name)}
+            {...props}
           />
         ) : (
           <input
             className="w-full p-3 mt-1 border text-gray-900 text-left border-gray-300 rounded-md focus:outline-none focus:border-primary "
-            {...register(name)}
+              {...register(name)}
+              {...props}
           />
         )}
 
         {errors[name] && (
-          <animated.span className="text-red-500 flex text-sm">
+          <animated.span className="text-red-500 flex text-sm" data-testid='error-testid'>
             {errors[name]?.message as string}
           </animated.span>
         )}
@@ -48,5 +52,3 @@ const Input: React.FC<InputProps> = ({
     </animated.div>
   );
 };
-
-export default Input;
