@@ -1,18 +1,22 @@
 import { useForm } from "react-hook-form";
-import { animated } from "react-spring";
+import { animated, useSpring } from "react-spring";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSpring } from "react-spring";
 import InputMask from "react-input-mask";
 import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
 import { registerClient } from "@/services/registerClient";
 
-export const Form = ({ getClientByCpf }: { getClientByCpf?: boolean }) => {
+export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerUserFormSchema),
+  });
+
+  const fadeInAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
   });
 
   const errorAnimation = useSpring({
@@ -22,34 +26,36 @@ export const Form = ({ getClientByCpf }: { getClientByCpf?: boolean }) => {
   });
 
   const renderInput = (label: string, name: string, masked?: boolean) => (
-    <div>
-      <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
-        {label}
-      </animated.label>
+    <animated.div style={fadeInAnimation}>
+      <div className="mb-4">
+        <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
+          {label}
+        </animated.label>
 
-      {masked ? (
-        <InputMask
-          mask="99/99/9999"
-          maskChar={null}
-          className="w-full p-3 mt-1 border text-left  border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-          {...register(name)}
-        />
-      ) : (
-        <input
-          className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-          {...register(name)}
-        />
-      )}
+        {masked ? (
+          <InputMask
+            mask="99/99/9999"
+            maskChar={null}
+            className="w-full p-3 mt-1 border text-left  border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            {...register(name)}
+          />
+        ) : (
+          <input
+            className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
+            {...register(name)}
+          />
+        )}
 
-      {errors[name] && (
-        <animated.span
-          style={errorAnimation}
-          className="text-red-500 flex text-sm"
-        >
-          {errors[name]?.message as string}
-        </animated.span>
-      )}
-    </div>
+        {errors[name] && (
+          <animated.span
+            style={errorAnimation}
+            className="text-red-500 flex text-sm"
+          >
+            {errors[name]?.message as string}
+          </animated.span>
+        )}
+      </div>
+    </animated.div>
   );
 
   return (

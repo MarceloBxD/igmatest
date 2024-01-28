@@ -7,8 +7,6 @@ import { animated } from "react-spring";
 import { cpfWithMask } from "@/utils/cpfWithMask";
 import { isCpfValid } from "@/utils/isCpfValid";
 import { api } from "@/config/axios";
-import { LeftArrow } from "@/assets/svgs/LeftArrow";
-import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
 
 const RegisterUser = () => {
@@ -23,11 +21,10 @@ const RegisterUser = () => {
   ) => {
     e.preventDefault();
 
-    // Verifica se o CPF é válido antes de fazer a requisição
     if (!isCpfValid(cpf)) {
       setInvalidCpf(true);
       setNotFound(false);
-      setClientData({}); // Limpa os dados do cliente
+      setClientData({});
       return;
     }
 
@@ -43,7 +40,7 @@ const RegisterUser = () => {
         console.log(err.response);
         setNotFound(true);
         setInvalidCpf(false);
-        setClientData({}); // Limpa os dados do cliente
+        setClientData({});
       }
     }
   };
