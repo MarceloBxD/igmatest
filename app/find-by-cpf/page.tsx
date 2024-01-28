@@ -47,8 +47,11 @@ const RegisterUser = () => {
 
   return (
     <animated.div className="h-screen w-screen flex">
-      <div className="flex-1 p-8 flex flex-col justify-center bg-slate-200">
-        <form onSubmit={(e) => getClientByCpf(e, cpf)}>
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-200">
+        <form
+          className="max-w-[50%] w-full"
+          onSubmit={(e) => getClientByCpf(e, cpf)}
+        >
           <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
             CPF
           </animated.label>
@@ -65,7 +68,7 @@ const RegisterUser = () => {
           </animated.button>
         </form>
         {clientData?.name ? (
-          <div className="mt-4 p-4 border border-gray-300 rounded-md bg-white shadow-md">
+          <div className="mt-4 max-w-[50%] mx-auto w-full p-4 border border-gray-300 rounded-md bg-white shadow-md">
             <p className="text-lg font-semibold text-black">
               {clientData.name}
             </p>
@@ -84,7 +87,7 @@ const RegisterUser = () => {
         {/* Adiciona um nulo para não renderizar nada se ainda não tiver feito a busca */}
         <BackButton />
       </div>
-      <div className="bg-[url('/bg-igma.jpg')] grayscale flex-1 bg-no-repeat bg-cover bg-center"></div>
+      <div className="bg-[url('/bg-igma.jpg')] hidden md:flex grayscale flex-1 bg-no-repeat bg-cover bg-center"></div>
     </animated.div>
   );
 };

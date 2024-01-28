@@ -20,6 +20,11 @@ const PAGES = [
     description: "Find client by cpf and show all data",
     href: "/find-by-cpf",
   },
+  {
+    title: "Get all clients",
+    description: "Get all clients from database",
+    href: "/all-clients",
+  },
 ];
 export default function Home() {
   return (
