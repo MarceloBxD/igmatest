@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { animated, useSpring } from "react-spring";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputMask from "react-input-mask";
-import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
+
+import Input from "../Input";
 import { registerClient } from "@/services/registerClient";
+import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
 
 export const Form = () => {
   const {
@@ -14,64 +16,40 @@ export const Form = () => {
     resolver: zodResolver(registerUserFormSchema),
   });
 
-  const fadeInAnimation = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  });
+  const [animation, setAnimation] = useSpring(() => ({
+    opacity: 0,
+    transform: "translateY(20px)",
+  }));
 
-  const errorAnimation = useSpring({
-    from: { opacity: 0, transform: "translateY(10px)" },
-    to: { opacity: 1, transform: "translateY(0)" },
-    config: { duration: 300 },
-  });
-
-  const renderInput = (label: string, name: string, masked?: boolean) => (
-    <animated.div style={fadeInAnimation}>
-      <div className="mb-4">
-        <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
-          {label}
-        </animated.label>
-
-        {masked ? (
-          <InputMask
-            mask="99/99/9999"
-            maskChar={null}
-            className="w-full p-3 mt-1 border text-left  border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-            {...register(name)}
-          />
-        ) : (
-          <input
-            className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-            {...register(name)}
-          />
-        )}
-
-        {errors[name] && (
-          <animated.span
-            style={errorAnimation}
-            className="text-red-500 flex text-sm"
-          >
-            {errors[name]?.message as string}
-          </animated.span>
-        )}
-      </div>
-    </animated.div>
-  );
+  useEffect(() => {
+    setAnimation({
+      opacity: 1,
+      transform: "translateY(0px)",
+    });
+  }, [setAnimation, errors]);
 
   return (
     <form
       onSubmit={handleSubmit(registerClient)}
       className="mx-auto grid w-full gap-6 text-center max-w-md p-8 rounded-lg  bg-opacity-90"
     >
-      {renderInput("Nome", "name")}
-      {renderInput("CPF", "cpf")}
-      {renderInput("Data de Aniversário", "birthday", true)}
+      <Input errors={errors} label="Nome" name="name" register={register} />
+      <Input errors={errors} label="CPF" name="cpf" register={register} />
+      <Input
+        errors={errors}
+        label="Data de Nascimento"
+        name="birthday"
+        register={register}
+        masked
+      />
+
       <animated.button
+        style={{ ...animation }}
         disabled={Object.keys(errors).length > 0}
         type="submit"
         className="w-full p-3 bg-gray-900 text-white rounded-md hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
       >
-        Cadastrar{" "}
+        Cadastrar
       </animated.button>
     </form>
   );

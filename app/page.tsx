@@ -22,7 +22,7 @@ const PAGES = [
   },
   {
     title: "Get all clients",
-    description: "Get all clients from database",
+    description: "Get all clients from database (pagination)",
     href: "/all-clients",
   },
 ];

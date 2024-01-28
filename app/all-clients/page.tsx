@@ -1,6 +1,7 @@
 "use client";
 
 import { BackButton } from "@/components/BackButton";
+import { ClientCard } from "@/components/ClientCard";
 import { api } from "@/config/axios";
 import { useEffect, useState } from "react";
 import { useTrail, config } from "react-spring";
@@ -52,19 +53,7 @@ const AllClients = () => {
         Clientes Registrados no Banco de Dados
       </h1>
       {trail.map((props, index) => (
-        <div
-          className="bg-gray-100 p-4 mb-4 rounded shadow-md"
-          key={clients[index].id}
-          {...props}
-        >
-          <p className="mb-2  text-slate-900">
-            Nome: <span className="font-semibold">{clients[index].name}</span>
-          </p>
-          <p className="mb-2 text-slate-900">CPF: {clients[index].cpf}</p>
-          <p className="text-slate-900">
-            Data de Aniversário: {clients[index].birthday}
-          </p>
-        </div>
+        <ClientCard clientData={clients[index]} key={index} />
       ))}
       <div className="flex justify-between mt-4">
         <button

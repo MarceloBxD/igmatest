@@ -2,25 +2,33 @@
 
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { animated } from "react-spring";
 
 import { cpfWithMask } from "@/utils/cpfWithMask";
 import { isCpfValid } from "@/utils/isCpfValid";
 import { api } from "@/config/axios";
 import { BackButton } from "@/components/BackButton";
+import { FormBackground } from "@/components/FormBackground";
+import Input from "@/components/Input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { findClientByCpfSchema } from "@/schemas/findClientByCpfSchema";
+import Button from "@/components/Button";
+import { ClientCard } from "@/components/ClientCard";
 
 const RegisterUser = () => {
-  const [cpf, setCpf] = useState("");
   const [clientData, setClientData] = useState({} as any);
   const [notFound, setNotFound] = useState(false);
   const [invalidCpf, setInvalidCpf] = useState(false);
 
-  const getClientByCpf = async (
-    e: React.FormEvent<HTMLFormElement>,
-    cpf: string
-  ) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(findClientByCpfSchema),
+  });
 
+  const getClientByCpf = async (cpf: string) => {
     if (!isCpfValid(cpf)) {
       setInvalidCpf(true);
       setNotFound(false);
@@ -33,6 +41,7 @@ const RegisterUser = () => {
         cpf: cpfWithMask(cpf),
       });
       setClientData(response.data);
+      console.log(clientData);
       setNotFound(false);
       setInvalidCpf(false);
     } catch (err) {
@@ -45,36 +54,18 @@ const RegisterUser = () => {
     }
   };
 
-  return (
-    <animated.div className="h-screen w-screen flex">
+  const FindByCpfForm = () => {
+    return (
       <div className="flex-1 flex flex-col items-center justify-center bg-slate-200">
         <form
           className="max-w-[50%] w-full"
-          onSubmit={(e) => getClientByCpf(e, cpf)}
+          onSubmit={handleSubmit((data) => getClientByCpf(data.cpf))}
         >
-          <animated.label className="flex flex-col text-left text-black text-sm font-bold mb-2">
-            CPF
-          </animated.label>
-          <input
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            className="w-full p-3 mt-1 border text-left border-gray-300 rounded-md focus:outline-none focus:border-primary dark:border-neutral-700 dark:bg-gray-900"
-          />
-          <animated.button
-            type="submit"
-            className="w-full mt-3 p-3 bg-gray-900 text-white rounded-md hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
-          >
-            Buscar
-          </animated.button>
+          <Input label="CPF" register={register} name="cpf" errors={errors} />
+          <Button title="Buscar" />
         </form>
         {clientData?.name ? (
-          <div className="mt-4 max-w-[50%] mx-auto w-full p-4 border border-gray-300 rounded-md bg-white shadow-md">
-            <p className="text-lg font-semibold text-black">
-              {clientData.name}
-            </p>
-            <p className="text-gray-600">{clientData.cpf}</p>
-            <p className="text-gray-600">{clientData.birthday}</p>
-          </div>
+          <ClientCard clientData={clientData} />
         ) : invalidCpf ? (
           <h1 className="text-red-500 font-semibold">
             CPF inválido. Por favor, insira um CPF válido.
@@ -84,12 +75,12 @@ const RegisterUser = () => {
             Não foi encontrado um cliente com esse CPF em nossa base de dados.
           </h1>
         ) : null}{" "}
-        {/* Adiciona um nulo para não renderizar nada se ainda não tiver feito a busca */}
         <BackButton />
       </div>
-      <div className="bg-[url('/bg-igma.jpg')] hidden md:flex grayscale flex-1 bg-no-repeat bg-cover bg-center"></div>
-    </animated.div>
-  );
+    );
+  };
+
+  return <FormBackground form={<FindByCpfForm />} />;
 };
 
 export default RegisterUser;
