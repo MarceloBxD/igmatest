@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-O desafio fornecido pela empresa IGMA se baseia em criar uma API para registro de usuários, sendo os dados fornecidos: **Nome**, **CPF** e **data de aniversário** do cliente. A API deveria aceitar o cadastro do cliente tanto caso fosse passado sem os pontos e hífens, quanto com eles também. Sendo necessário a validação do CPF antes de cadastrar o cliente na base de dados (https://www.macoratti.net/alg_cpf.htm#:~:text=O%20algoritmo%20de%20valida%C3%A7%C3%A3o%20do,%3A%20111.444.777-05).
+A proposta da IGMA consiste em desenvolver uma API para o registro de usuários, onde os dados essenciais são o Nome, CPF e data de aniversário do cliente. A API deve ser flexível, permitindo o cadastro do cliente tanto com a formatação tradicional (com pontos e hífens) quanto sem esses caracteres. Além disso, é imprescindível realizar a validação do CPF, utilizando o algoritmo adequado, antes de efetuar o cadastro na base de dados. O algoritmo de validação do CPF pode ser consultado em: https://www.macoratti.net/alg_cpf.htm#:~:text=O%20algoritmo%20de%20valida%C3%A7%C3%A3o%20do,%3A%20111.444.777-05
 
 ### Feito com
 
@@ -50,14 +50,14 @@ Para instalar e executar o projeto, siga os passos abaixo:
 
 ## Testes Automatizados
 
-Rodando os testes:
+Rodando os testes
 
 ```
 yarn test
 ```
 
-Rodando cobertura de testes:
+Testes com watch mode
 
 ```
-yarn test:coverage
+npm run test:watch
 ```

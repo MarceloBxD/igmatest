@@ -22,13 +22,12 @@ export const metadata: Metadata = {
   description: PAGE_DESCRIPTION,
 };
 
-const head = (
+const Head = (
   <head>
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content={PAGE_DESCRIPTION} />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charSet="utf-8" />
+    <meta name="description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
   </head>
 );
 
@@ -40,7 +39,7 @@ export default function RootLayout({
   return (
     <AppProvider>
       <html lang={PAGE_LANG}>
-        {head}
+        {Head}
         <body className={FONT_CLASSNAME}>
           {children}
           <ToastContainer
