@@ -27,7 +27,7 @@ Para instalar e executar o projeto, siga os passos abaixo:
 1. **Clone o repositório**
 
    ```bash
-   git clone igmatest
+   git clone https://github.com/MarceloBxD/igmatest.git
 
    cd igmatest
 
