@@ -1,12 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/libs/prisma";
 
 // Per page clients
 const PER_PAGE_CLIENTS = 4;
 
-export async function GET(req: NextApiRequest, { params }: { params: any }) {
+export async function GET(req: NextRequest, { params }: { params: any }) {
   // getting page from query params
   const page = Number(req.url?.split("?")[1]?.split("=")[1]);
 
