@@ -9,11 +9,18 @@ const MAIN_IMAGE = {
   height: 37,
 };
 
-const TEXTS = {
-  title: "Igma Challenge",
-  description: "Cadaster users by name, cpf and birth w/ cpf validation",
-};
-
+const PAGES = [
+  {
+    title: "Register Client",
+    description: "Cadaster users by name, cpf w/ validation and birth",
+    href: "/register-user",
+  },
+  {
+    title: "Find by cpf",
+    description: "Find client by cpf and show all data",
+    href: "/find-by-cpf",
+  },
+];
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -44,21 +51,23 @@ export default function Home() {
       </div>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="/register-user"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            {TEXTS.title}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            {TEXTS.description}
-          </p>
-        </a>
+        {PAGES.map((page) => (
+          <a
+            href={page.href}
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            rel="noopener noreferrer"
+          >
+            <h2 className="mb-3 text-2xl font-semibold">
+              {page.title}
+              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                -&gt;
+              </span>
+            </h2>
+            <p className="m-0 max-w-[30ch] text-sm opacity-50">
+              {page.description}
+            </p>
+          </a>
+        ))}
       </div>
     </main>
   );

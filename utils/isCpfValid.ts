@@ -20,7 +20,7 @@ function calculateSecondDigit(cpfComPrimeiroDigito: number[]): number {
   return secondDigit;
 }
 
-export function validateCpf(cpf: string): boolean {
+export function isCpfValid(cpf: string): boolean {
   const cpfNumbers = cpf.replace(/\D/g, "").split("").map(Number);
 
   if (cpfNumbers.length !== 11) {

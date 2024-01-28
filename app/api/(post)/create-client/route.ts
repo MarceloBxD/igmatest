@@ -1,4 +1,4 @@
-import { validateCpf } from "@/utils/validateCpf";
+import { isCpfValid } from "@/utils/isCpfValid";
 import { NextRequest, NextResponse } from "next/server";
 import { cpfWithMask } from "@/utils/cpfWithMask";
 import prisma from "@/libs/prisma";
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (validateCpf(cpf)) {
+    if (isCpfValid(cpf)) {
       const newClient = await prisma?.client.create({
         data: {
           name,

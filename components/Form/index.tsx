@@ -5,9 +5,8 @@ import { useSpring } from "react-spring";
 import InputMask from "react-input-mask";
 import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
 import { registerClient } from "@/services/registerClient";
-import { useState } from "react";
 
-export const Form = () => {
+export const Form = ({ getClientByCpf }: { getClientByCpf?: boolean }) => {
   const {
     register,
     handleSubmit,

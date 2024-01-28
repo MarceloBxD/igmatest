@@ -1,13 +1,11 @@
-import axios from "axios";
 import { AxiosError } from "axios";
 import { notify } from "@/components/notify";
-
-axios.defaults.baseURL = "http://localhost:3000/api";
+import { api } from "@/config/axios";
 
 export async function registerClient(data: any) {
   try {
     console.log(data);
-    const response = await axios.post("/create-client", data);
+    const response = await api.post("/create-client", data);
 
     if (response.status === 201) {
       notify("Cliente cadastrado com sucesso", "success");
