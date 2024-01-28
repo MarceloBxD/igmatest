@@ -1,10 +1,15 @@
-// jest.config.js
-module.exports = {
+import type { Config } from "@jest/types";
+
+const config: Config.InitialOptions = {
   preset: "ts-jest",
-  testEnvironment: "node",
-  verbose: true,
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
-    "@/libs/prisma": "<rootDir>/path/to/your/libs/prisma",
-    // ... outros mapeamentos conforme necessário
+    "^@/components/(.*)$": "<rootDir>/components/$1",
+    "^@/utils/(.*)$": "<rootDir>/utils/$1",
+    // Adicione mais mapeamentos de módulos conforme necessário
   },
+  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
 };
+
+export default config;
