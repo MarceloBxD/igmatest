@@ -1,5 +1,6 @@
 import { cpfWithMask } from "@/utils/cpfWithMask";
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/libs/prisma";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
