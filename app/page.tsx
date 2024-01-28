@@ -11,18 +11,18 @@ const MAIN_IMAGE = {
 
 const PAGES = [
   {
-    title: "Register Client",
-    description: "Cadaster users by name, cpf w/ validation and birth",
+    title: "Registro de Cliente",
+    description: "Cadastro de cliente com validação de CPF",
     href: "/register-user",
   },
   {
-    title: "Find by cpf",
-    description: "Find client by cpf and show all data",
+    title: "Encontrar Cliente por CPF",
+    description: "Encontrar cliente por CPF na base de dados",
     href: "/find-by-cpf",
   },
   {
-    title: "Get all clients",
-    description: "Get all clients from database (pagination)",
+    title: "Visualizar Todos os Clientes",
+    description: "Visualizar todos os clientes cadastrados na base de dados",
     href: "/all-clients",
   },
 ];
