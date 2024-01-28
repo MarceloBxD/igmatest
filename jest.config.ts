@@ -1,15 +1,13 @@
-import type { Config } from "@jest/types";
+import nextJest from "next/jest";
 
-const config: Config.InitialOptions = {
-  preset: "ts-jest",
-  testEnvironment: "jsdom",
+const createJestConfig = nextJest({
+  dir: "./",
+});
+
+const config = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  moduleNameMapper: {
-    "^@/components/(.*)$": "<rootDir>/components/$1",
-    "^@/utils/(.*)$": "<rootDir>/utils/$1",
-    // Adicione mais mapeamentos de módulos conforme necessário
-  },
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  testEnvironment: "jsdom",
+  preset: "ts-jest",
 };
 
-export default config;
+export default createJestConfig(config);

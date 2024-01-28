@@ -1,5 +1,5 @@
 import React from "react";
-import { animated, useSpring } from "@react-spring/web";
+import { animated } from "@react-spring/web";
 import InputMask from "react-input-mask";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
@@ -10,11 +10,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<FieldValues>;
   errors?: any;
 }
-
-const inputAnimation = {
-  from: { opacity: 0, transform: "translateY(20px)" },
-  to: { opacity: 1, transform: "translateY(0px)" },
-};
 
 const Input: React.FC<InputProps> = ({
   errors,
