@@ -12,6 +12,7 @@ A proposta da IGMA consiste em desenvolver uma API para o registro de usuários,
 - [Prisma ORM](https://www.prisma.io/)
 - [MondoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
 - [Jest](https://jestjs.io/pt-BR/docs/getting-started)
+- [Testing Library](https://testing-library.com/)
 - [Insomnia](https://insomnia.rest/)
 
 ## Etapas de Instalação
