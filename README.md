@@ -38,8 +38,7 @@ Para instalar e executar o projeto, siga os passos abaixo:
 2. **Adicione as variáveis de ambiente em seu arquivo .env**
 
    ```bash
-   DATABASE_URL="mongodb+srv://marcelobracet1:et2zoAraHAT6eQZy@igma.z0uhwfe.mongodb.net/test"
-
+   DATABASE_URL="mongodb+srv://igmacompany:igmacompany@igma.z0uhwfe.mongodb.net/test"
    ```
 
 3. **Reinicie o terminal para que o .env seja carregado corretamente**
