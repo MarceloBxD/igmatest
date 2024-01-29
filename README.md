@@ -42,7 +42,10 @@ Para instalar e executar o projeto, siga os passos abaixo:
 
    ```
 
-3. **Rode a aplicação local** (`http://localhost:3000`)
+3. **Reinicie o terminal para que o .env seja carregado corretamente**
+
+
+4. **Rode a aplicação local** (`http://localhost:3000`)
 
    ```bash
     npm run dev | yarn dev
