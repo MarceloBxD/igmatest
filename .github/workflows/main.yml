@@ -23,7 +23,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=github-sast-tests
-            -Dsonar.projectKey=github-sast-tests
+            -Dsonar.projectKey=github-sast-tests_igma-project-rechability
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
