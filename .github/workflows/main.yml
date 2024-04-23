@@ -20,10 +20,14 @@ jobs:
           node-version: "20.x"
       - name: SAST Scan on Source Code using SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=github-sast-tests
+            -Dsonar.projectKey=github-sast-tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      
+
       - name: Install dependencies
         run: npm install
       - name: Run tests
