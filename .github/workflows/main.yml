@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "20.x"
-        ### instala as dependências do projeto na máquina virtual
+        ### instala as dependências do projeto na máquina virtual de execução
       - name: Install dependencies
         run: npm install
         ### executa os testes do projeto
