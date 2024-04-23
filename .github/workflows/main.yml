@@ -14,14 +14,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+        ### configura o ambiente de execução para Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "20.x"
-
+        ### instala as dependências do projeto na máquina virtual
       - name: Install dependencies
         run: npm install
-
+        ### executa os testes do projeto
       - name: Run tests
         run: npm test
+  security:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Run the SCA scan on the source code
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run the SCA scan on the source code
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
