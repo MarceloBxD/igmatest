@@ -9,10 +9,8 @@ on:
       - master
 
 jobs:
-  build:
+  run-command-shell:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-        run: echo "Checked out the repository"
+      - name: Run a Sheel Command
+        run: echo "Hello, World!"
