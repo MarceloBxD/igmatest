@@ -1,24 +1,37 @@
-"use client"
+"use client";
 
-import { AxiosError } from "axios"
-import { useState } from "react"
+import { AxiosError } from "axios";
+import { useEffect, useReducer, useState } from "react";
 
-import { cpfWithMask } from "@/utils/cpfWithMask"
-import { isCpfValid } from "@/utils/isCpfValid"
-import { api } from "@/config/axios"
-import { BackButton } from "@/components/BackButton"
-import { FormBackground } from "@/components/FormBackground/FormBackground.component"
-import {Input} from "@/components/Input"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { findClientByCpfSchema } from "@/schemas/findClientByCpfSchema"
-import { Button } from "@/components/Button"
-import { ClientCard } from "@/components/ClientCard"
+import { cpfWithMask } from "@/utils/cpfWithMask";
+import { isCpfValid } from "@/utils/isCpfValid";
+import { api } from "@/config/axios";
+import { BackButton } from "@/components/BackButton";
+import { FormBackground } from "@/components/FormBackground/FormBackground.component";
+import { Input } from "@/components/Input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { findClientByCpfSchema } from "@/schemas/findClientByCpfSchema";
+import { Button } from "@/components/Button";
+import { ClientCard } from "@/components/ClientCard";
 
 const RegisterUser = () => {
-  const [clientData, setClientData] = useState({} as any)
-  const [notFound, setNotFound] = useState(false)
-  const [invalidCpf, setInvalidCpf] = useState(false)
+  const [clientData, setClientData] = useState({} as any);
+  const [notFound, setNotFound] = useState(false);
+  const [invalidCpf, setInvalidCpf] = useState(false);
+
+  const [state, dispatch] = useReducer(
+    (state: any, action: any) => ({
+      ...state,
+      ...action,
+    }),
+    {
+      name: "Marcelo Bracet",
+      clientData: {} as any,
+      notFound: false,
+      invalidCpf: false,
+    }
+  );
 
   const {
     register,
@@ -26,33 +39,33 @@ const RegisterUser = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(findClientByCpfSchema),
-  })
+  });
 
   const getClientByCpf = async (cpf: string) => {
     if (!isCpfValid(cpf)) {
-      setInvalidCpf(true)
-      setNotFound(false)
-      setClientData({})
-      return
+      setInvalidCpf(true);
+      setNotFound(false);
+      setClientData({});
+      return;
     }
 
     try {
       const response = await api.post("/client-by-cpf", {
         cpf: cpfWithMask(cpf),
-      })
-      setClientData(response.data)
-      console.log(clientData)
-      setNotFound(false)
-      setInvalidCpf(false)
+      });
+      setClientData(response.data);
+      console.log(clientData);
+      setNotFound(false);
+      setInvalidCpf(false);
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log(err.response)
-        setNotFound(true)
-        setInvalidCpf(false)
-        setClientData({})
+        console.log(err.response);
+        setNotFound(true);
+        setInvalidCpf(false);
+        setClientData({});
       }
     }
-  }
+  };
 
   const FindByCpfForm = () => {
     return (
@@ -74,13 +87,13 @@ const RegisterUser = () => {
           <h1 className="text-black font-semibold">
             Não foi encontrado um cliente com esse CPF em nossa base de dados.
           </h1>
-        ) : null}{" "}
+        ) : null}
         <BackButton />
       </div>
-    )
-  }
+    );
+  };
 
-  return <FormBackground form={<FindByCpfForm />} />
-}
+  return <FormBackground form={<FindByCpfForm />} />;
+};
 
-export default RegisterUser
+export default RegisterUser;

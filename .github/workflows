@@ -1,0 +1,18 @@
+name: CI/CD Pipeline on Github Actions
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        run: echo "Checked out the repository"
