@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { findClientByCpfSchema } from "@/schemas/findClientByCpfSchema";
 import { Button } from "@/components/Button";
-import { ClientCard } from "@/components/ClientCard";
+import { ClientCard } from "@/components/Card";
 
 const RegisterUser = () => {
   const [clientData, setClientData] = useState({} as any);

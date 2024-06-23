@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { animated, useSpring } from "react-spring";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {Input} from "../Input/";
-import { registerClient } from "@/services/registerClient";
-import { registerUserFormSchema } from "@/schemas/registerUserFormSchema";
+import { Input } from "../Input/";
+import { createEspecie } from "@/services/especieService";
+import { registerEspecieFormSchema } from "@/schemas/registerEspecieFormSchema";
 
 export const Form = () => {
   const {
@@ -13,7 +13,7 @@ export const Form = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(registerUserFormSchema),
+    resolver: zodResolver(registerEspecieFormSchema),
   });
 
   const [animation, setAnimation] = useSpring(() => ({
@@ -30,18 +30,28 @@ export const Form = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(registerClient)}
-      className="mx-auto grid w-full gap-6 text-center max-w-md p-8 rounded-lg  bg-opacity-90"
+      onSubmit={handleSubmit(createEspecie)}
+      className="mx-auto grid w-full gap-6 text-center max-w-md p-8 rounded-lg bg-opacity-90"
       data-testid="form-testid"
     >
-      <Input errors={errors} label="Nome" name="name" register={register} />
-      <Input errors={errors} label="CPF" name="cpf" register={register} />
       <Input
         errors={errors}
-        label="Data de Nascimento"
-        name="birthday"
+        label="Nome Comum"
+        name="nomeComum"
         register={register}
-        masked
+      />
+      <Input
+        errors={errors}
+        label="Nome Científico"
+        name="nomeCientifico"
+        register={register}
+      />
+      <Input errors={errors} label="Valor" name="valor" register={register} />
+      <Input
+        errors={errors}
+        label="ID da Classe Taxonômica"
+        name="classeTaxonomicaId"
+        register={register}
       />
 
       <animated.button
