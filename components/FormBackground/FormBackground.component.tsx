@@ -7,7 +7,7 @@ export const FormBackground = ({ form }: { form: React.ReactNode }) => {
         {form}
         <BackButton />
       </div>
-      <div className="hidden md:flex bg-[url('/bg-igma.jpg')] grayscale flex-1 bg-no-repeat bg-cover bg-center" data-testid='image-testid'></div>
+      <div className="hidden md:flex bg-[url('/bg-roadkill.png')] grayscale flex-1 bg-no-repeat bg-cover bg-center" data-testid='image-testid'></div>
     </div>
   );
 };

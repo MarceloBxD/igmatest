@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,13 +7,102 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Client {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  cpf       String   @unique
-  birthday  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+model Especie {
+  id                 String           @id @default(auto()) @map("_id") @db.ObjectId
+  nomeComum          String
+  nomeCientifico     String
+  valor              String
+  classeTaxonomica   ClasseTaxonomica @relation(fields: [classeTaxonomicaId], references: [id])
+  classeTaxonomicaId String           @db.ObjectId
+  Ocorrencia         Ocorrencia[]
 
-  @@map("clients")
+  @@map("especies")
+}
+
+model ClasseTaxonomica {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  nome     String
+  especies Especie[]
+
+  @@map("classesTaxonomicas")
+}
+
+model CategoriaLocal {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome   String
+  locais Local[]
+
+  @@map("categoriasLocais")
+}
+
+model Local {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  descricao        String
+  tipoMovimento    TipoMovimento  @relation(fields: [tipoMovimentoId], references: [id])
+  tipoMovimentoId  String         @db.ObjectId
+  tipoLocal        TipoLocal      @relation(fields: [tipoLocalId], references: [id])
+  tipoLocalId      String         @db.ObjectId
+  categoriaLocal   CategoriaLocal @relation(fields: [categoriaLocalId], references: [id])
+  categoriaLocalId String         @db.ObjectId
+  Ocorrencia       Ocorrencia[]
+
+  @@map("locais")
+}
+
+model TipoMovimento {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  descricao String
+  locais    Local[]
+
+  @@map("tiposMovimentos")
+}
+
+model TipoLocal {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  descricao String
+  locais    Local[]
+
+  @@map("tiposLocais")
+}
+
+model Rodovia {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  nome String
+  ufs  Uf[]
+
+  @@map("rodovias")
+}
+
+model Uf {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String
+  rodoviaId String
+  rodovia   Rodovia @relation(fields: [rodoviaId], references: [id])
+
+  @@map("ufs")
+}
+
+model SituacaoEnvolvidoAnimal {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  descricao   String
+  ocorrencias Ocorrencia[]
+
+  @@map("situacoesEnvolvidoAnimal")
+}
+
+model Ocorrencia {
+  id                        String                  @id @default(auto()) @map("_id") @db.ObjectId
+  km                        Int
+  numeroPista               Int
+  velocidadeMaxima          Int
+  dataHora                  DateTime
+  havaiaAgua                Boolean
+  especie                   Especie                 @relation(fields: [especieId], references: [id])
+  especieId                 String                  @db.ObjectId
+  local                     Local                   @relation(fields: [localId], references: [id])
+  localId                   String                  @db.ObjectId
+  situacaoEnvolvidoAnimal   SituacaoEnvolvidoAnimal @relation(fields: [situacaoEnvolvidoAnimalId], references: [id])
+  situacaoEnvolvidoAnimalId String                  @db.ObjectId
+
+  @@map("ocorrencias")
 }

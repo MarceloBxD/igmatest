@@ -7,8 +7,8 @@ import { AppProvider } from "@/contexts/AppContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const PAGE_TITLE = "IGMA CHALLENGE | API";
-const PAGE_DESCRIPTION = "REGISTER CLIENT";
+const PAGE_TITLE = "ROADKILL | API";
+const PAGE_DESCRIPTION = "APPLICATION TO DATABASE MANAGEMENT OF ROADKILL";
 const PAGE_LANG = "pt-br";
 
 const TOAST_AUTO_CLOSE = 5000;
