@@ -30,6 +30,12 @@ const PAGES = [
       "Buscar todas as classes taxonômicas cadastradas na base de dados",
     href: "/all-classes",
   },
+  {
+    title: "Buscar todas as Espécies por Classe Taxonômica",
+    description:
+      "Buscar todas as espécies cadastradas na base de dados por classe taxonômica",
+    href: "/all-species-by-class",
+  },
 ];
 export default function Home() {
   return (
